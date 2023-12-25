@@ -1,0 +1,55 @@
+-- 1)Retrieve Movie Details ?
+
+SELECT * FROM Movie;
+
+-- 2)Retrieve India Box Office Details for week 1 for Animal Movie ?
+
+SELECT Week1Amount FROM IndiaBoxOffice;
+
+-- 3)Retrieve Day 10 Collection for Animal Movie ?
+
+SELECT * FROM DayWiseCollection
+WHERE Day = 10;
+
+-- 4)Retrieve Week-2 Collection for Animal Movie ?
+
+SELECT Week
+      ,Amount
+FROM WeekWiseCollection
+WHERE Week = 2;
+
+-- 5)Retrieve Third Weekend Collection for Animal Movie ?
+
+SELECT Weekend
+      ,Amount
+FROM WeekendCollection
+WHERE Weekend = 3;
+
+-- 6)Retrieve Overseas Box Office Details for OpeningDayAmount and OpeningWeekendAmount for Animal Movie ?
+
+SELECT OpeningDayAmount
+      ,OpeningWeekendAmount
+FROM OverseasBoxOffice;
+
+-- 7)Retrieve Day-wise Collection for Animal Movie with Performance '58 % Red Box'?
+
+SELECT * FROM  DayWiseCollection
+WHERE Performance LIKE '58 % Red Box';
+
+-- 8)Calculate Total Lifetime Amount for Animal Movie ?
+
+SELECT SUM(LifetimeAmount) AS Total_Lifetime
+FROM IndiaBoxOffice;
+
+-- 9)Calculate Average Day-wise Collection for Animal Movie ?
+
+SELECT CEIL(AVG(Amount)) AS Average_Daywise_Collection
+FROM DayWiseCollection ;
+
+-- 10)Calculate Total Box Office Collection for Animal Movie ?
+
+SELECT m.Title
+      ,(io.LifetimeAmount + o.TopOverseasGross) AS Total_Box_Office_Collection
+FROM Movie AS m
+JOIN IndiaBoxOffice AS io USING(MovieID)
+JOIN OverseasBoxOffice AS o USING(MovieID);

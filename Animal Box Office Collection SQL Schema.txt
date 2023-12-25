@@ -1,0 +1,113 @@
+-- Table to store movie details
+CREATE TABLE Movie (
+    MovieID INT PRIMARY KEY,
+    Title VARCHAR(255),
+    ReleaseDate DATE
+);
+
+-- Table to store India Box Office Collection
+CREATE TABLE IndiaBoxOffice (
+    MovieID INT,
+    OpeningDayAmount DECIMAL(10, 2),
+    EndOfOpeningWeekendAmount DECIMAL(10, 2),
+    Week1Amount DECIMAL(10, 2),
+    Week2Amount DECIMAL(10, 2),
+    Week3Amount DECIMAL(10, 2),
+    LifetimeAmount DECIMAL(10, 2),
+    PRIMARY KEY (MovieID),
+    FOREIGN KEY (MovieID) REFERENCES Movie(MovieID)
+);
+
+-- Table to store Day Wise Box Office Collection
+CREATE TABLE DayWiseCollection (
+    MovieID INT,
+    Day INT,
+    Amount DECIMAL(10, 2),
+    Performance VARCHAR(20),
+    PRIMARY KEY (MovieID, Day),
+    FOREIGN KEY (MovieID) REFERENCES Movie(MovieID)
+);
+
+-- Table to store Week Wise Box Office Collection
+CREATE TABLE WeekWiseCollection (
+    MovieID INT,
+    Week INT,
+    Amount DECIMAL(10, 2),
+    Performance VARCHAR(20),
+    PRIMARY KEY (MovieID, Week),
+    FOREIGN KEY (MovieID) REFERENCES Movie(MovieID)
+);
+
+-- Table to store Weekend Box Office Collection
+CREATE TABLE WeekendCollection (
+    MovieID INT,
+    Weekend INT,
+    Amount DECIMAL(10, 2),
+    Performance VARCHAR(20),
+    PRIMARY KEY (MovieID, Weekend),
+    FOREIGN KEY (MovieID) REFERENCES Movie(MovieID)
+);
+
+-- Table to store Overseas Box Office Collection
+CREATE TABLE OverseasBoxOffice (
+    MovieID INT,
+    OpeningDayAmount DECIMAL(10, 2),
+    OpeningWeekendAmount DECIMAL(10, 2),
+    Week1Amount DECIMAL(10, 2),
+    TopOverseasGross DECIMAL(10, 2),
+    PRIMARY KEY (MovieID),
+    FOREIGN KEY (MovieID) REFERENCES Movie(MovieID)
+);
+
+-- Inserting values into the Movie table
+
+INSERT INTO Movie (MovieID, Title, ReleaseDate)
+VALUES 
+    (1, 'Animal', '2023-12-01');
+
+-- Insert values for IndiaBoxOffice
+INSERT INTO IndiaBoxOffice (MovieID, OpeningDayAmount, EndOfOpeningWeekendAmount, Week1Amount, Week2Amount, Week3Amount, LifetimeAmount)
+VALUES (1, 62.00, 193.00, 318.50, 133.75, 49.25, 501.50);
+
+
+-- Inserting values for Day Wise Box Office Collection
+INSERT INTO DayWiseCollection (MovieID, Day, Amount, Performance) VALUES
+(1, 1, 62.00, '0 % Red Box'),
+(1, 2, 64.00, '3 % Red Box'),
+(1, 3, 67.00, '5 % Red Box'),
+(1, 4, 39.00, '42 % Red Box'),
+(1, 5, 35.00, '10 % Red Box'),
+(1, 6, 28.50, '19 % Red Box'),
+(1, 7, 23.00, '19 % Red Box'),
+(1, 8, 23.00, '0 % Red Box'),
+(1, 9, 33.00, '43 % Red Box'),
+(1, 10, 35.00, '6 % Red Box'),
+(1, 11, 13.25, '62 % Red Box'),
+(1, 12, 11.25, '15 % Red Box'),
+(1, 13, 9.75, '13 % Red Box'),
+(1, 14, 8.50, '13 % Red Box'),
+(1, 15, 8.25, '3 % Red Box'),
+(1, 16, 11.50, '39 % Red Box'),
+(1, 17, 13.00, '13 % Red Box'),
+(1, 18, 5.50, '58 % Red Box'),
+(1, 19, 5.00, '9 % Red Box'),
+(1, 20, 4.50, '10 % Red Box'),
+(1, 21, 1.50, '67 % Red Box');
+
+-- Assuming MovieID 1 represents the movie in question
+INSERT INTO WeekWiseCollection (MovieID, Week, Amount, Performance)
+VALUES
+    (1, 1, 318.50, 'Normal'),  -- Week 1
+    (1, 2, 133.75, '58 % Red Box'),  -- Week 2
+    (1, 3, 49.25, '63 % Red Box');  -- Week 3
+
+-- Insert values into Weekend Box Office Collection table
+INSERT INTO WeekendCollection (MovieID, Weekend, Amount, Performance)
+VALUES
+    (1, 1, 193.00, 'Weekend 1'),
+    (1, 2, 91.00, '53 %  Red Box'),
+    (1, 3, 32.75, '64 %  Red Box');
+
+-- Insert values for OverseasBoxOffice table
+INSERT INTO OverseasBoxOffice (MovieID, OpeningDayAmount, OpeningWeekendAmount, Week1Amount, TopOverseasGross) VALUES
+(1, 41.00, 64.00, 155.00, 231.00);
